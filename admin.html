@@ -1028,7 +1028,7 @@
             </div>
           </form>
 
-          <a href="dashboard.html" class="back-link">กลับหน้าแรก</a>
+          <a href="index.html" class="back-link">กลับหน้าแรก</a>
         </div>
       </div>
     </div>
@@ -1154,7 +1154,7 @@
       const GOAL = 1000000;
       const DEMO_USER = 'admin';
       const DEMO_PASS = '1234';
-      // โหลดยอดล่าสุดจาก localStorage (sync กับ dashboard.html)
+
       let currentAmount = parseInt(localStorage.getItem('fundraising_raisedAmount') || '0', 10);
       let currentDonorCount = parseInt(localStorage.getItem('fundraising_donorCount') || '0', 10);
 
@@ -1475,7 +1475,6 @@
           var donorNum = donorRaw ? parseInt(donorRaw, 10) : currentDonorCount;
           currentDonorCount = donorNum;
 
-          // Sync กับ dashboard.html ผ่าน localStorage
           localStorage.setItem('fundraising_raisedAmount', newAmount.toString());
           localStorage.setItem('fundraising_donorCount', donorNum.toString());
           localStorage.setItem('fundraising_lastUpdated', getThaiDateTime());
