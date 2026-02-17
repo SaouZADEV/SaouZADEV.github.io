@@ -531,29 +531,44 @@
       background: var(--gray-200)
     }
 
-    /* Phase dots */
-    .phase-dots {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
+    /* Phase breakdown */
+    .phase-breakdown {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
     }
 
-    .phase-dot-item {
+    .phase-card {
       display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      color: var(--gray-500);
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1.5px solid var(--gray-200);
+      transition: all 0.5s;
+    }
+
+    .phase-card.funded {
+      border-color: #D4AF37;
+      background: linear-gradient(135deg, #FFFDF5 0%, #FFF8E1 100%);
+    }
+
+    .phase-card.partial {
+      border-color: #71A7D1;
+      background: linear-gradient(135deg, #F8FBFF 0%, #EDF4FC 100%);
     }
 
     .phase-dot {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      border: 2px solid #71A7D1;
+      border: 2.5px solid #71A7D1;
       background: transparent;
       transition: all 0.5s;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
     .phase-dot.filled {
@@ -564,6 +579,43 @@
     .phase-dot.partial {
       background: linear-gradient(180deg, #D4AF37 50%, transparent 50%);
       border-color: #D4AF37;
+    }
+
+    .phase-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .phase-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      line-height: 1.3;
+    }
+
+    .phase-cost {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--blue-700);
+      margin-top: 2px;
+    }
+
+    .phase-range {
+      font-size: 0.68rem;
+      color: var(--gray-500);
+      margin-top: 1px;
+    }
+
+    .phase-card.funded .phase-name {
+      color: #8B6914;
+    }
+
+    .phase-card.funded .phase-cost {
+      color: #8B6914;
+    }
+
+    .phase-card.funded .phase-range {
+      color: #B8941F;
     }
 
     /* ===== FLOWER DIVIDER ===== */
@@ -871,12 +923,26 @@
         padding: 24px 16px
       }
 
-      .phase-dots {
-        gap: 4px
+      .phase-breakdown {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
       }
 
-      .phase-dot-item {
-        font-size: 0.68rem
+      .phase-card {
+        padding: 8px 10px;
+        gap: 8px;
+      }
+
+      .phase-name {
+        font-size: 0.72rem;
+      }
+
+      .phase-cost {
+        font-size: 0.7rem;
+      }
+
+      .phase-range {
+        font-size: 0.62rem;
       }
 
       .legend {
@@ -1061,8 +1127,12 @@
         </div>
 
         <div class="stat-row">
-          <span class="stat-label">ยอดระดมทุนล่าสุด</span>
+          <span class="stat-label">ยอดระดมทุนทั้งหมด</span>
           <span class="stat-value large" id="raisedAmount">0<span class="unit">บาท</span></span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">บริจาคล่าสุด</span>
+          <span class="stat-value" id="lastDonation" style="color:#22C55E">—<span class="unit">บาท</span></span>
         </div>
         <div class="stat-row">
           <span class="stat-label">เป้าหมายโครงการ</span>
@@ -1272,19 +1342,39 @@
           </div>
         </div>
 
-        <!-- Phase indicator dots -->
-        <div class="phase-dots" id="phaseDots">
-          <div class="phase-dot-item">
-            <div class="phase-dot" data-phase="1"></div><span>ฐานราก</span>
+        <!-- Phase breakdown cards -->
+        <div class="phase-breakdown" id="phaseDots">
+          <div class="phase-card" data-phase-card="1">
+            <div class="phase-dot" data-phase="1"></div>
+            <div class="phase-info">
+              <div class="phase-name">ขั้นที่ 1: ฐานราก</div>
+              <div class="phase-cost">200,000 บาท</div>
+              <div class="phase-range">0 – 20%</div>
+            </div>
           </div>
-          <div class="phase-dot-item">
-            <div class="phase-dot" data-phase="2"></div><span>ผนัง/โครง</span>
+          <div class="phase-card" data-phase-card="2">
+            <div class="phase-dot" data-phase="2"></div>
+            <div class="phase-info">
+              <div class="phase-name">ขั้นที่ 2: ผนัง/โครงสร้าง</div>
+              <div class="phase-cost">300,000 บาท</div>
+              <div class="phase-range">21 – 50%</div>
+            </div>
           </div>
-          <div class="phase-dot-item">
-            <div class="phase-dot" data-phase="3"></div><span>หลังคา</span>
+          <div class="phase-card" data-phase-card="3">
+            <div class="phase-dot" data-phase="3"></div>
+            <div class="phase-info">
+              <div class="phase-name">ขั้นที่ 3: หลังคา</div>
+              <div class="phase-cost">300,000 บาท</div>
+              <div class="phase-range">51 – 80%</div>
+            </div>
           </div>
-          <div class="phase-dot-item">
-            <div class="phase-dot" data-phase="4"></div><span>ตกแต่ง</span>
+          <div class="phase-card" data-phase-card="4">
+            <div class="phase-dot" data-phase="4"></div>
+            <div class="phase-info">
+              <div class="phase-name">ขั้นที่ 4: ตกแต่ง</div>
+              <div class="phase-cost">200,000 บาท</div>
+              <div class="phase-range">81 – 100%</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1353,7 +1443,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <p><strong>โรงเรียนบุ่งค้าวิทยาคม</strong></p>
-      <p>ตำบลบุ่งค้า อำเภอเลิงนกทา จังหวัดยโสธร 45120</p>
+      <p>ตำบลบุ่งค้า อำเภอเลิงนกทา จังหวัดยโสธร 35120</p>
     </div>
     <div class="footer-watermark" aria-hidden="true">
       <svg viewBox="0 0 200 200">
@@ -1372,6 +1462,7 @@
         goalAmount: 1000000,
         raisedAmount: parseInt(localStorage.getItem('fundraising_raisedAmount') || '0', 10),
         donorCount: parseInt(localStorage.getItem('fundraising_donorCount') || '0', 10),
+        lastDonation: parseInt(localStorage.getItem('fundraising_lastDonation') || '0', 10),
         animDuration: 2200,
       };
 
@@ -1403,6 +1494,7 @@
       function initStats() {
         const percentEl = document.getElementById('percentNumber');
         const raisedEl = document.getElementById('raisedAmount');
+        const lastDonationEl = document.getElementById('lastDonation');
         const goalEl = document.getElementById('goalAmount');
         const donorEl = document.getElementById('donorCount');
         const progressBar = document.getElementById('progressBar');
@@ -1412,10 +1504,21 @@
         animateValue(raisedEl, 0, CONFIG.raisedAmount, CONFIG.animDuration, function (v) {
           return formatNumber(v);
         });
-        // Append unit after animation
         setTimeout(function () {
           raisedEl.innerHTML = formatNumber(CONFIG.raisedAmount) + '<span class="unit">บาท</span>';
         }, CONFIG.animDuration + 50);
+
+        // Last donation
+        if (CONFIG.lastDonation > 0) {
+          animateValue(lastDonationEl, 0, CONFIG.lastDonation, CONFIG.animDuration, function (v) {
+            return '+' + formatNumber(v);
+          });
+          setTimeout(function () {
+            lastDonationEl.innerHTML = '+' + formatNumber(CONFIG.lastDonation) + '<span class="unit">บาท</span>';
+          }, CONFIG.animDuration + 50);
+        } else {
+          lastDonationEl.innerHTML = '—<span class="unit">บาท</span>';
+        }
 
         animateValue(goalEl, 0, CONFIG.goalAmount, CONFIG.animDuration, function (v) {
           return formatNumber(v);
@@ -1452,12 +1555,14 @@
         phases.forEach(function (phase, index) {
           const el = document.getElementById(phase.id);
           const dot = document.querySelector('.phase-dot[data-phase="' + (index + 1) + '"]');
+          const card = document.querySelector('.phase-card[data-phase-card="' + (index + 1) + '"]');
           if (percent >= phase.max) {
             // Fully funded
             setTimeout(function () {
               el.classList.remove('unfunded');
               el.classList.add('funded');
               if (dot) dot.classList.add('filled');
+              if (card) card.classList.add('funded');
             }, 600 + index * 500);
             highestFunded = index + 1;
           } else if (percent >= phase.min) {
@@ -1466,6 +1571,7 @@
               el.classList.remove('unfunded');
               el.classList.add('funded');
               if (dot) dot.classList.add('partial');
+              if (card) card.classList.add('partial');
             }, 600 + index * 500);
             highestFunded = index + 1;
           }

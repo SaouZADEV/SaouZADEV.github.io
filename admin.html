@@ -237,7 +237,7 @@
     }
 
     .card-update {
-      max-width: 560px;
+      max-width: 640px;
     }
 
     /* ============ LOGIN STEP ============ */
@@ -802,6 +802,218 @@
       color: var(--gold-500);
     }
 
+    /* ============ DONATIONS TABLE ============ */
+    .donations-section {
+      margin-top: 28px;
+      border-top: 2px solid var(--gray-200);
+      padding-top: 24px;
+    }
+
+    .donations-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .donations-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--blue-900);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .donations-count {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--gray-500);
+      background: var(--gray-100);
+      padding: 2px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    .donations-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-200);
+    }
+
+    .donations-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .donations-table thead {
+      background: #F8F5E6;
+    }
+
+    .donations-table th {
+      padding: 10px 12px;
+      font-weight: 600;
+      color: var(--gray-700);
+      text-align: left;
+      border-bottom: 2px solid var(--gray-200);
+      white-space: nowrap;
+    }
+
+    .donations-table td {
+      padding: 10px 12px;
+      color: var(--gray-700);
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: middle;
+    }
+
+    .donations-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .donations-table tr:hover {
+      background: #FDFBF3;
+    }
+
+    .donations-table .amount-cell {
+      font-weight: 600;
+      color: var(--blue-900);
+      white-space: nowrap;
+    }
+
+    .donations-table .note-cell {
+      color: var(--gray-500);
+      font-size: 0.8rem;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .donations-table .date-cell {
+      font-size: 0.78rem;
+      color: var(--gray-500);
+      white-space: nowrap;
+    }
+
+    .btn-delete-donation {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-delete-donation:hover {
+      background: var(--red-50);
+      border-color: var(--red-500);
+      color: var(--red-500);
+    }
+
+    .donations-empty {
+      text-align: center;
+      padding: 24px 16px;
+      color: var(--gray-400);
+      font-size: 0.875rem;
+    }
+
+    .donations-total-row {
+      background: #F8F5E6 !important;
+      font-weight: 600;
+    }
+
+    .donations-total-row td {
+      border-top: 2px solid var(--gold-500) !important;
+      color: var(--blue-900);
+    }
+
+    /* ============ CONFIRM DIALOG ============ */
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .confirm-overlay.show {
+      opacity: 1;
+    }
+
+    .confirm-dialog {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: var(--shadow-xl);
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.2s;
+    }
+
+    .confirm-overlay.show .confirm-dialog {
+      transform: scale(1);
+    }
+
+    .confirm-dialog h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 8px;
+    }
+
+    .confirm-dialog p {
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      margin-bottom: 20px;
+    }
+
+    .confirm-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .confirm-actions button {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+      border: none;
+    }
+
+    .btn-confirm-cancel {
+      background: var(--gray-100);
+      color: var(--gray-700);
+    }
+
+    .btn-confirm-cancel:hover {
+      background: var(--gray-200);
+    }
+
+    .btn-confirm-delete {
+      background: var(--red-500);
+      color: var(--white);
+    }
+
+    .btn-confirm-delete:hover {
+      background: var(--red-600);
+    }
+
     /* ============ RESPONSIVE ============ */
     @media (max-width: 600px) {
       .card {
@@ -1045,7 +1257,7 @@
               อัปเดตยอดระดมทุน
             </h1>
           </div>
-          <p class="update-subtitle">กรอกยอดเงินล่าสุดเพื่ออัปเดตหน้าแสดงผล</p>
+          <p class="update-subtitle">กรอกยอดเงินที่เพิ่มเข้ามาเพื่ออัปเดตหน้าแสดงผล</p>
 
           <!-- Info card: current status -->
           <div class="info-card">
@@ -1056,6 +1268,10 @@
             <div class="info-row">
               <span>เป้าหมาย</span>
               <span class="info-value">1,000,000 บาท</span>
+            </div>
+            <div class="info-row">
+              <span>บริจาคล่าสุด</span>
+              <span class="info-value" id="infoLastDonation">— บาท</span>
             </div>
             <div class="info-row">
               <span>คิดเป็น</span>
@@ -1070,7 +1286,7 @@
           <!-- Update form -->
           <form id="updateForm" novalidate>
             <div class="form-group-lg">
-              <label class="form-label" for="newAmount">ยอดรวมปัจจุบัน (บาท)</label>
+              <label class="form-label" for="newAmount">ยอดที่เพิ่ม (บาท)</label>
               <div class="input-wrapper">
                 <span class="input-prefix" aria-hidden="true">&#3647;</span>
                 <input class="form-input with-prefix" type="text" id="newAmount" name="newAmount" placeholder="0"
@@ -1120,7 +1336,8 @@
             <!-- Preview -->
             <div class="preview-card">
               <div class="preview-title">ตัวอย่างการแสดงผล</div>
-              <div class="preview-amount" id="previewAmount">ยอดใหม่: 0 บาท</div>
+              <div class="preview-amount" id="previewAmount">เพิ่ม: 0 บาท</div>
+              <div class="preview-amount" id="previewNewTotal" style="font-size:1.1rem;color:var(--green-600);">ยอดรวมใหม่: 0 บาท</div>
               <div class="preview-percent" id="previewPercent">คิดเป็น 0.00% ของเป้าหมาย 1,000,000 บาท</div>
               <div class="preview-progress-track">
                 <div class="preview-progress-fill" id="previewProgressBar" style="width:0%"></div>
@@ -1139,6 +1356,35 @@
               <span class="btn-loading-label">กำลังบันทึก...</span>
             </button>
           </form>
+
+          <!-- Donations History Table -->
+          <div class="donations-section" id="donationsSection">
+            <div class="donations-header">
+              <span class="donations-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+                รายการบริจาค
+              </span>
+              <span class="donations-count" id="donationsCount">0 รายการ</span>
+            </div>
+            <div class="donations-table-wrap">
+              <table class="donations-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>จำนวนเงิน</th>
+                    <th>หมายเหตุ</th>
+                    <th>วันที่</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="donationsBody">
+                  <tr><td colspan="5" class="donations-empty">ยังไม่มีรายการ</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1155,8 +1401,63 @@
       const DEMO_USER = 'admin';
       const DEMO_PASS = '1234';
 
-      let currentAmount = parseInt(localStorage.getItem('fundraising_raisedAmount') || '0', 10);
-      let currentDonorCount = parseInt(localStorage.getItem('fundraising_donorCount') || '0', 10);
+      // ============ DONATIONS DATA ============
+      function loadDonations() {
+        try {
+          var data = JSON.parse(localStorage.getItem('fundraising_donations') || '[]');
+          return Array.isArray(data) ? data : [];
+        } catch (e) { return []; }
+      }
+
+      function saveDonations(donations) {
+        localStorage.setItem('fundraising_donations', JSON.stringify(donations));
+        // Also sync totals for index.html
+        var total = donations.reduce(function (sum, d) { return sum + d.amount; }, 0);
+        var totalDonors = donations.reduce(function (sum, d) { return sum + (d.donorCount || 0); }, 0);
+        localStorage.setItem('fundraising_raisedAmount', total.toString());
+        localStorage.setItem('fundraising_donorCount', totalDonors.toString());
+        if (donations.length > 0) {
+          var last = donations[donations.length - 1];
+          localStorage.setItem('fundraising_lastDonation', last.amount.toString());
+          localStorage.setItem('fundraising_lastUpdated', last.date);
+        }
+        localStorage.setItem('fundraising_updatedAt', Date.now().toString());
+      }
+
+      // Migrate old data if needed (single amount -> donations array)
+      function migrateOldData() {
+        var donations = loadDonations();
+        if (donations.length === 0) {
+          var oldAmount = parseInt(localStorage.getItem('fundraising_raisedAmount') || '0', 10);
+          if (oldAmount > 0) {
+            var oldDonors = parseInt(localStorage.getItem('fundraising_donorCount') || '0', 10);
+            var oldDate = localStorage.getItem('fundraising_lastUpdated') || getThaiDateTime();
+            donations.push({
+              id: Date.now(),
+              amount: oldAmount,
+              donorCount: oldDonors,
+              note: 'ยอดก่อนหน้า (นำเข้าอัตโนมัติ)',
+              date: oldDate
+            });
+            saveDonations(donations);
+          }
+        }
+        return donations;
+      }
+
+      var donations = migrateOldData();
+
+      function getTotalAmount() {
+        return donations.reduce(function (sum, d) { return sum + d.amount; }, 0);
+      }
+
+      function getTotalDonors() {
+        return donations.reduce(function (sum, d) { return sum + (d.donorCount || 0); }, 0);
+      }
+
+      function getLastDonation() {
+        return donations.length > 0 ? donations[donations.length - 1] : null;
+      }
 
       // ============ DOM REFS ============
       const stepLogin = document.getElementById('step-login');
@@ -1181,19 +1482,19 @@
       const infoCurrentAmount = document.getElementById('infoCurrentAmount');
       const infoPercent = document.getElementById('infoPercent');
       const infoProgressBar = document.getElementById('infoProgressBar');
+      const infoLastDonation = document.getElementById('infoLastDonation');
       const previewAmount = document.getElementById('previewAmount');
+      const previewNewTotal = document.getElementById('previewNewTotal');
       const previewPercent = document.getElementById('previewPercent');
       const previewProgressBar = document.getElementById('previewProgressBar');
       const donorCountInput = document.getElementById('donorCountInput');
+      const donationsBody = document.getElementById('donationsBody');
+      const donationsCount = document.getElementById('donationsCount');
       const toastContainer = document.getElementById('toastContainer');
 
       // ============ UTILITIES ============
       function formatNumber(num) {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      }
-
-      function parseNumberInput(str) {
-        return parseInt(str.replace(/,/g, ''), 10);
       }
 
       function calcPercent(amount) {
@@ -1212,6 +1513,12 @@
         const hours = now.getHours().toString().padStart(2, '0');
         const minutes = now.getMinutes().toString().padStart(2, '0');
         return day + ' ' + month + ' ' + year + ' เวลา ' + hours + ':' + minutes + ' น.';
+      }
+
+      function getShortThaiDate() {
+        const now = new Date();
+        const thaiMonths = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+        return now.getDate() + ' ' + thaiMonths[now.getMonth()] + ' ' + (now.getFullYear() + 543);
       }
 
       // ============ TOAST SYSTEM ============
@@ -1233,30 +1540,48 @@
           '</button>';
 
         toastContainer.appendChild(toast);
-
-        // Trigger animation
-        requestAnimationFrame(function () {
-          toast.classList.add('show');
-        });
-
-        // Close button
-        toast.querySelector('.toast-close').addEventListener('click', function () {
-          dismissToast(toast);
-        });
-
-        // Auto dismiss
-        setTimeout(function () {
-          dismissToast(toast);
-        }, 4000);
+        requestAnimationFrame(function () { toast.classList.add('show'); });
+        toast.querySelector('.toast-close').addEventListener('click', function () { dismissToast(toast); });
+        setTimeout(function () { dismissToast(toast); }, 4000);
       }
 
       function dismissToast(toast) {
         if (toast.classList.contains('hide')) return;
         toast.classList.remove('show');
         toast.classList.add('hide');
-        setTimeout(function () {
-          if (toast.parentNode) toast.parentNode.removeChild(toast);
-        }, 400);
+        setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 400);
+      }
+
+      // ============ CONFIRM DIALOG ============
+      function showConfirm(message, onConfirm) {
+        var overlay = document.createElement('div');
+        overlay.className = 'confirm-overlay';
+        overlay.innerHTML =
+          '<div class="confirm-dialog">' +
+            '<h3>ยืนยันการลบ</h3>' +
+            '<p>' + message + '</p>' +
+            '<div class="confirm-actions">' +
+              '<button class="btn-confirm-cancel" type="button">ยกเลิก</button>' +
+              '<button class="btn-confirm-delete" type="button">ลบ</button>' +
+            '</div>' +
+          '</div>';
+
+        document.body.appendChild(overlay);
+        requestAnimationFrame(function () { overlay.classList.add('show'); });
+
+        function close() {
+          overlay.classList.remove('show');
+          setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 250);
+        }
+
+        overlay.querySelector('.btn-confirm-cancel').addEventListener('click', close);
+        overlay.querySelector('.btn-confirm-delete').addEventListener('click', function () {
+          close();
+          onConfirm();
+        });
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) close();
+        });
       }
 
       // ============ PASSWORD TOGGLE ============
@@ -1271,29 +1596,22 @@
       // ============ LOGIN ============
       loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
-
         var user = usernameInput.value.trim();
         var pass = passwordInput.value;
-
-        // Hide previous error
         loginError.classList.remove('visible');
 
-        // Validate empty
         if (!user || !pass) {
           loginErrorMsg.textContent = 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน';
           loginError.classList.add('visible');
-          if (!user) usernameInput.focus();
-          else passwordInput.focus();
+          if (!user) usernameInput.focus(); else passwordInput.focus();
           return;
         }
 
-        // Loading state
         btnLogin.classList.add('loading');
         btnLogin.disabled = true;
 
         setTimeout(function () {
           if (user === DEMO_USER && pass === DEMO_PASS) {
-            // Success -> transition to update step
             transitionToUpdate();
           } else {
             loginErrorMsg.textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
@@ -1310,67 +1628,41 @@
       // ============ STEP TRANSITION ============
       function transitionToUpdate() {
         stepLogin.classList.add('fade-out');
-
         setTimeout(function () {
           stepLogin.style.display = 'none';
           stepLogin.classList.remove('fade-out');
-
           stepUpdate.style.display = 'block';
           stepUpdate.classList.add('fade-in');
           headerBar.classList.add('visible');
-
-          // Set datetime
           updateDatetime.textContent = getThaiDateTime();
-
-          // Update info card
           updateInfoCard();
-
-          // Pre-fill donor count
-          if (currentDonorCount > 0) {
-            donorCountInput.value = formatNumber(currentDonorCount);
-          }
-
-          // Focus first input
+          renderDonationsTable();
           newAmountInput.focus();
-
           showToast('เข้าสู่ระบบสำเร็จ', 'success');
-
-          setTimeout(function () {
-            stepUpdate.classList.remove('fade-in');
-          }, 500);
+          setTimeout(function () { stepUpdate.classList.remove('fade-in'); }, 500);
         }, 300);
       }
 
       function transitionToLogin() {
         stepUpdate.classList.add('fade-out');
         headerBar.classList.remove('visible');
-
         setTimeout(function () {
           stepUpdate.style.display = 'none';
           stepUpdate.classList.remove('fade-out');
-
           stepLogin.style.display = 'block';
           stepLogin.classList.add('fade-in');
-
-          // Reset login form
           loginForm.reset();
           loginError.classList.remove('visible');
           eyeIcon.style.display = 'block';
           eyeOffIcon.style.display = 'none';
           passwordInput.type = 'password';
-
-          // Reset update form
           updateForm.reset();
           amountError.classList.remove('visible');
           newAmountInput.classList.remove('input-error');
           btnSubmitUpdate.disabled = true;
           updatePreview(0);
-
           usernameInput.focus();
-
-          setTimeout(function () {
-            stepLogin.classList.remove('fade-in');
-          }, 500);
+          setTimeout(function () { stepLogin.classList.remove('fade-in'); }, 500);
         }, 300);
       }
 
@@ -1382,11 +1674,76 @@
 
       // ============ INFO CARD UPDATE ============
       function updateInfoCard() {
-        var pct = calcPercent(currentAmount);
-        infoCurrentAmount.textContent = formatNumber(currentAmount) + ' บาท';
+        var total = getTotalAmount();
+        var pct = calcPercent(total);
+        infoCurrentAmount.textContent = formatNumber(total) + ' บาท';
         infoPercent.textContent = pct.toFixed(2) + '%';
         infoProgressBar.style.width = pct + '%';
         infoProgressBar.parentElement.setAttribute('aria-valuenow', Math.round(pct));
+
+        var last = getLastDonation();
+        if (last) {
+          infoLastDonation.textContent = '+' + formatNumber(last.amount) + ' บาท';
+        } else {
+          infoLastDonation.textContent = '— บาท';
+        }
+      }
+
+      // ============ DONATIONS TABLE ============
+      function renderDonationsTable() {
+        donationsCount.textContent = donations.length + ' รายการ';
+
+        if (donations.length === 0) {
+          donationsBody.innerHTML = '<tr><td colspan="5" class="donations-empty">ยังไม่มีรายการ</td></tr>';
+          return;
+        }
+
+        var html = '';
+        var total = 0;
+        // Show newest first
+        for (var i = donations.length - 1; i >= 0; i--) {
+          var d = donations[i];
+          total += d.amount;
+          var noteText = d.note || '-';
+          html += '<tr>' +
+            '<td>' + (i + 1) + '</td>' +
+            '<td class="amount-cell">+' + formatNumber(d.amount) + ' บาท</td>' +
+            '<td class="note-cell" title="' + noteText.replace(/"/g, '&quot;') + '">' + noteText + '</td>' +
+            '<td class="date-cell">' + (d.date || '-') + '</td>' +
+            '<td><button class="btn-delete-donation" data-id="' + d.id + '" title="ลบรายการนี้" type="button">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' +
+            '</svg></button></td></tr>';
+        }
+
+        // Total row
+        html += '<tr class="donations-total-row">' +
+          '<td></td>' +
+          '<td class="amount-cell">รวม ' + formatNumber(total) + ' บาท</td>' +
+          '<td></td><td></td><td></td></tr>';
+
+        donationsBody.innerHTML = html;
+
+        // Attach delete events
+        donationsBody.querySelectorAll('.btn-delete-donation').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var id = parseInt(this.getAttribute('data-id'), 10);
+            var donation = donations.find(function (d) { return d.id === id; });
+            if (!donation) return;
+            showConfirm('ลบรายการ "' + formatNumber(donation.amount) + ' บาท" ออกจากระบบ?', function () {
+              deleteDonation(id);
+            });
+          });
+        });
+      }
+
+      function deleteDonation(id) {
+        donations = donations.filter(function (d) { return d.id !== id; });
+        saveDonations(donations);
+        updateInfoCard();
+        renderDonationsTable();
+        updatePreview(0);
+        showToast('ลบรายการบริจาคเรียบร้อย', 'success');
       }
 
       // ============ AMOUNT INPUT FORMATTING ============
@@ -1424,15 +1781,8 @@
           return false;
         }
         var num = parseInt(raw, 10);
-        if (isNaN(num)) {
-          amountError.textContent = 'ต้องเป็นตัวเลข';
-          amountError.classList.add('visible');
-          newAmountInput.classList.add('input-error');
-          btnSubmitUpdate.disabled = true;
-          return false;
-        }
-        if (num < 0) {
-          amountError.textContent = 'ต้องไม่ติดลบ';
+        if (isNaN(num) || num <= 0) {
+          amountError.textContent = 'กรุณากรอกจำนวนเงินที่มากกว่า 0';
           amountError.classList.add('visible');
           newAmountInput.classList.add('input-error');
           btnSubmitUpdate.disabled = true;
@@ -1445,9 +1795,12 @@
       }
 
       // ============ REAL-TIME PREVIEW ============
-      function updatePreview(amount) {
-        var pct = calcPercent(amount);
-        previewAmount.textContent = 'ยอดใหม่: ' + formatNumber(amount) + ' บาท';
+      function updatePreview(addAmount) {
+        var currentTotal = getTotalAmount();
+        var newTotal = currentTotal + addAmount;
+        var pct = calcPercent(newTotal);
+        previewAmount.textContent = 'เพิ่ม: +' + formatNumber(addAmount) + ' บาท';
+        previewNewTotal.textContent = 'ยอดรวมใหม่: ' + formatNumber(newTotal) + ' บาท';
         previewPercent.textContent = 'คิดเป็น ' + pct.toFixed(2) + '% ของเป้าหมาย ' + formatNumber(GOAL) + ' บาท';
         previewProgressBar.style.width = pct + '%';
       }
@@ -1455,45 +1808,46 @@
       // ============ UPDATE FORM SUBMIT ============
       updateForm.addEventListener('submit', function (e) {
         e.preventDefault();
-
         var raw = newAmountInput.value.replace(/[^0-9]/g, '');
         if (!validateAmount(raw)) return;
 
-        var newAmount = parseInt(raw, 10);
+        var addAmount = parseInt(raw, 10);
 
-        // Loading state
         btnSubmitUpdate.classList.add('loading');
         btnSubmitUpdate.disabled = true;
 
         setTimeout(function () {
-          // "Save" the update
-          currentAmount = newAmount;
-          updateInfoCard();
-
-          // อ่านจำนวนผู้บริจาค
+          // Read donor count
           var donorRaw = donorCountInput.value.replace(/[^0-9]/g, '');
-          var donorNum = donorRaw ? parseInt(donorRaw, 10) : currentDonorCount;
-          currentDonorCount = donorNum;
+          var donorNum = donorRaw ? parseInt(donorRaw, 10) : 0;
 
-          localStorage.setItem('fundraising_raisedAmount', newAmount.toString());
-          localStorage.setItem('fundraising_donorCount', donorNum.toString());
-          localStorage.setItem('fundraising_lastUpdated', getThaiDateTime());
-          localStorage.setItem('fundraising_updatedAt', Date.now().toString());
+          // Create donation entry
+          var entry = {
+            id: Date.now(),
+            amount: addAmount,
+            donorCount: donorNum,
+            note: updateNote.value.trim() || '',
+            date: getThaiDateTime()
+          };
+
+          donations.push(entry);
+          saveDonations(donations);
+
+          updateInfoCard();
+          renderDonationsTable();
 
           // Reset form
           newAmountInput.value = '';
-          donorCountInput.value = donorNum > 0 ? formatNumber(donorNum) : '';
+          donorCountInput.value = '';
           updateNote.value = '';
           updateDatetime.textContent = getThaiDateTime();
           updatePreview(0);
           btnSubmitUpdate.disabled = true;
-
           btnSubmitUpdate.classList.remove('loading');
 
-          showToast('บันทึกยอดสำเร็จ — ' + formatNumber(newAmount) + ' บาท', 'success');
-
+          showToast('เพิ่มยอดบริจาค +' + formatNumber(addAmount) + ' บาท สำเร็จ', 'success');
           newAmountInput.focus();
-        }, 1000);
+        }, 800);
       });
 
       // ============ DATETIME AUTO-UPDATE ============
