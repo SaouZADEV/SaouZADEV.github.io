@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบผู้ดูแล — โรงเรียนบุ่งค้าวิทยาคม</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============ CSS VARIABLES ============ */
+    :root {
+      --blue-900: #002B5B;
+      --blue-700: #194C78;
+      --blue-600: #3A7AB0;
+      --blue-500: #71A7D1;
+      --blue-100: #C8DCF0;
+      --blue-50: #F8F5E6;
+      --gold-500: #D4AF37;
+      --gold-400: #E0C050;
+      --gold-600: #C89229;
+      --gray-50: #F8F5E6;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-300: #D1D5DB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+      --gray-600: #4B5563;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --red-50: #FEF2F2;
+      --red-100: #FEE2E2;
+      --red-500: #EF4444;
+      --red-600: #DC2626;
+      --red-700: #B91C1C;
+      --green-50: #F0FDF4;
+      --green-500: #22C55E;
+      --green-600: #16A34A;
+      --white: #FFFFFF;
+      --spacing: 8px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 100px;
+      --shadow-sm: 0 1px 2px rgba(0, 43, 91, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0, 43, 91, 0.1), 0 2px 4px -2px rgba(0, 43, 91, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 43, 91, 0.1), 0 4px 6px -4px rgba(0, 43, 91, 0.06);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 43, 91, 0.1), 0 8px 10px -6px rgba(0, 43, 91, 0.06);
+      --transition: 0.3s ease;
+    }
+
+    /* ============ RESET & BASE ============ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Prompt', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(160deg, #F8F5E6 0%, #EEE9D4 30%, #F8F5E6 50%, #F0EBD8 80%, #F8F5E6 100%);
+      background-attachment: fixed;
+      color: var(--gray-800);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Flower watermark background pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg opacity='0.03'%3E%3Cpolygon points='100,155 97,175 95,200 105,200 103,175' fill='%23002B5B'/%3E%3Cpolygon points='97,175 95,200 92,200 94,178' fill='%23002B5B'/%3E%3Cpolygon points='103,175 105,200 108,200 106,178' fill='%23002B5B'/%3E%3Cpolygon points='100,130 85,148 78,155 88,145' fill='%23002B5B'/%3E%3Cpolygon points='100,130 88,145 92,152 100,140' fill='%23002B5B'/%3E%3Cpolygon points='100,130 115,148 122,155 112,145' fill='%23002B5B'/%3E%3Cpolygon points='100,130 112,145 108,152 100,140' fill='%23002B5B'/%3E%3Cpolygon points='100,130 72,142 68,150 80,140' fill='%23002B5B'/%3E%3Cpolygon points='100,130 128,142 132,150 120,140' fill='%23002B5B'/%3E%3Cpolygon points='88,168 72,160 65,170 75,172' fill='%23002B5B'/%3E%3Cpolygon points='88,168 75,172 70,180 82,176' fill='%23002B5B'/%3E%3Cpolygon points='88,168 82,176 85,180 90,174' fill='%23002B5B'/%3E%3Cpolygon points='112,168 128,160 135,170 125,172' fill='%23002B5B'/%3E%3Cpolygon points='112,168 125,172 130,180 118,176' fill='%23002B5B'/%3E%3Cpolygon points='112,168 118,176 115,180 110,174' fill='%23002B5B'/%3E%3Cpolygon points='100,12 82,42 92,55 100,38' fill='%23002B5B'/%3E%3Cpolygon points='100,12 100,38 108,55 118,42' fill='%23002B5B'/%3E%3Cpolygon points='82,42 75,65 92,72 92,55' fill='%23002B5B'/%3E%3Cpolygon points='92,55 92,72 108,72 108,55 100,38' fill='%23002B5B'/%3E%3Cpolygon points='118,42 108,55 108,72 125,65' fill='%23002B5B'/%3E%3Cpolygon points='130,30 155,48 158,65 140,55' fill='%23002B5B'/%3E%3Cpolygon points='130,30 140,55 132,68 118,50' fill='%23002B5B'/%3E%3Cpolygon points='158,65 162,82 145,88 140,55' fill='%23002B5B'/%3E%3Cpolygon points='140,55 145,88 125,90 118,72 132,68' fill='%23002B5B'/%3E%3Cpolygon points='118,50 118,72 125,90 112,80' fill='%23002B5B'/%3E%3Cpolygon points='155,100 168,118 158,140 148,125' fill='%23002B5B'/%3E%3Cpolygon points='148,125 158,140 142,152 132,138' fill='%23002B5B'/%3E%3Cpolygon points='155,100 148,125 132,138 138,108' fill='%23002B5B'/%3E%3Cpolygon points='138,108 132,138 118,142 120,112' fill='%23002B5B'/%3E%3Cpolygon points='120,112 118,142 108,130 112,105' fill='%23002B5B'/%3E%3Cpolygon points='45,100 32,118 42,140 52,125' fill='%23002B5B'/%3E%3Cpolygon points='52,125 42,140 58,152 68,138' fill='%23002B5B'/%3E%3Cpolygon points='45,100 52,125 68,138 62,108' fill='%23002B5B'/%3E%3Cpolygon points='62,108 68,138 82,142 80,112' fill='%23002B5B'/%3E%3Cpolygon points='80,112 82,142 92,130 88,105' fill='%23002B5B'/%3E%3Cpolygon points='70,30 45,48 42,65 60,55' fill='%23002B5B'/%3E%3Cpolygon points='70,30 60,55 68,68 82,50' fill='%23002B5B'/%3E%3Cpolygon points='42,65 38,82 55,88 60,55' fill='%23002B5B'/%3E%3Cpolygon points='60,55 55,88 75,90 82,72 68,68' fill='%23002B5B'/%3E%3Cpolygon points='82,50 82,72 75,90 88,80' fill='%23002B5B'/%3E%3Cpolygon points='88,82 95,78 105,78 112,82 115,90 112,98 105,102 95,102 88,98 85,90' fill='%23002B5B'/%3E%3Cpolygon points='100,72 96,78 100,80 104,78' fill='%23002B5B'/%3E%3Cpolygon points='112,78 110,82 113,86 116,82' fill='%23002B5B'/%3E%3Cpolygon points='115,92 112,96 115,100 118,96' fill='%23002B5B'/%3E%3Cpolygon points='108,102 104,100 100,104 106,106' fill='%23002B5B'/%3E%3Cpolygon points='92,102 96,100 100,104 94,106' fill='%23002B5B'/%3E%3Cpolygon points='85,92 88,96 85,100 82,96' fill='%23002B5B'/%3E%3Cpolygon points='88,78 90,82 87,86 84,82' fill='%23002B5B'/%3E%3Cpolygon points='100,80 97,85 100,88 103,85' fill='%23002B5B'/%3E%3Cpolygon points='106,84 104,88 108,92 110,88' fill='%23002B5B'/%3E%3Cpolygon points='108,95 104,94 103,98 107,98' fill='%23002B5B'/%3E%3Cpolygon points='97,98 100,96 103,98 100,101' fill='%23002B5B'/%3E%3Cpolygon points='92,95 96,94 97,98 93,98' fill='%23002B5B'/%3E%3Cpolygon points='90,88 92,84 96,88 94,92' fill='%23002B5B'/%3E%3Cpolygon points='100,75 98,78 102,78' fill='%23002B5B'/%3E%3Cpolygon points='114,85 112,82 115,83' fill='%23002B5B'/%3E%3Cpolygon points='113,97 115,95 113,93' fill='%23002B5B'/%3E%3Cpolygon points='87,85 88,82 85,83' fill='%23002B5B'/%3E%3Cpolygon points='87,97 85,95 87,93' fill='%23002B5B'/%3E%3Cpolygon points='98,87 100,85 102,87 101,90 99,90' fill='%23002B5B'/%3E%3Cpolygon points='99,88 100,87 101,88 100.5,89.5 99.5,89.5' fill='%23002B5B'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      background-repeat: repeat;
+    }
+
+    /* ============ INLINE SVGs (hidden) ============ */
+    .svg-defs {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    /* Flower icon inline helper */
+    .flower-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+
+    .flower-icon-sm {
+      width: 16px;
+      height: 16px;
+    }
+
+    .flower-icon-lg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .flower-full-deco {
+      width: 36px;
+      height: 36px;
+    }
+
+    /* ============ LAYOUT ============ */
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    /* ============ HEADER BAR (Update step) ============ */
+    .header-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: linear-gradient(135deg, #002B5B 0%, #194C78 100%);
+      box-shadow: 0 2px 8px rgba(0, 43, 91, 0.2);
+      border-bottom: 3px solid var(--gold-500);
+      display: none;
+    }
+
+    .header-bar.visible {
+      display: block;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 43, 91, 0.15);
+      padding: 3px;
+      overflow: hidden;
+    }
+
+    .header-logo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .header-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .btn-logout {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-radius: var(--radius-md);
+      background: transparent;
+      color: rgba(255, 255, 255, 0.9);
+      font-family: 'Prompt', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-logout:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.6);
+      color: var(--white);
+    }
+
+    .btn-logout:focus-visible {
+      outline: 2px solid var(--gold-500);
+      outline-offset: 2px;
+    }
+
+    /* ============ CENTERED CONTAINER ============ */
+    .center-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .center-container.with-header {
+      padding-top: 80px;
+    }
+
+    /* ============ CARD ============ */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 25px -3px rgba(0, 43, 91, 0.1), 0 4px 10px -4px rgba(0, 43, 91, 0.06);
+      width: 100%;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      border-top: 3px solid var(--gold-500);
+    }
+
+    .card-login {
+      max-width: 440px;
+    }
+
+    .card-update {
+      max-width: 560px;
+    }
+
+    /* ============ LOGIN STEP ============ */
+    #step-login {
+      display: block;
+    }
+
+    #step-update {
+      display: none;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .school-emblem {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 43, 91, 0.15);
+      padding: 3px;
+      overflow: hidden;
+    }
+
+    .school-emblem img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .school-emblem svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .card-title {
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--blue-900);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .card-subtitle {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      margin-bottom: 32px;
+    }
+
+    /* ============ FORM ELEMENTS ============ */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group-lg {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon-left {
+      position: absolute;
+      left: 14px;
+      color: var(--gray-400);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon-right {
+      position: absolute;
+      right: 14px;
+      color: var(--gray-400);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition);
+    }
+
+    .input-icon-right:hover {
+      color: var(--gray-600);
+    }
+
+    .input-icon-right:focus-visible {
+      outline: 2px solid var(--blue-500);
+      outline-offset: 1px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      padding-left: 42px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.9375rem;
+      color: var(--gray-800);
+      background: var(--white);
+      border: 1.5px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+      outline: none;
+      min-height: 48px;
+    }
+
+    .form-input:focus {
+      border-color: #71A7D1;
+      box-shadow: 0 0 0 3px rgba(113, 167, 209, 0.2);
+    }
+
+    .form-input.has-right-icon {
+      padding-right: 42px;
+    }
+
+    .form-input::placeholder {
+      color: var(--gray-400);
+    }
+
+    .form-input.no-left-icon {
+      padding-left: 14px;
+    }
+
+    .form-input.with-prefix {
+      padding-left: 42px;
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 12px 14px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.9375rem;
+      color: var(--gray-800);
+      background: var(--white);
+      border: 1.5px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+      outline: none;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-textarea:focus {
+      border-color: #71A7D1;
+      box-shadow: 0 0 0 3px rgba(113, 167, 209, 0.2);
+    }
+
+    .form-textarea::placeholder {
+      color: var(--gray-400);
+    }
+
+    .input-prefix {
+      position: absolute;
+      left: 14px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      pointer-events: none;
+    }
+
+    /* ============ ERROR BANNER ============ */
+    .error-banner {
+      display: none;
+      padding: 12px 16px;
+      background: var(--red-50);
+      border: 1px solid var(--red-500);
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      font-size: 0.875rem;
+      color: var(--red-700);
+      align-items: center;
+      gap: 8px;
+    }
+
+    .error-banner.visible {
+      display: flex;
+    }
+
+    .error-banner svg {
+      flex-shrink: 0;
+    }
+
+    /* ============ VALIDATION ERROR ============ */
+    .field-error {
+      font-size: 0.8125rem;
+      color: var(--red-600);
+      margin-top: 4px;
+      display: none;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    .form-input.input-error,
+    .form-textarea.input-error {
+      border-color: var(--red-500);
+    }
+
+    .form-input.input-error:focus,
+    .form-textarea.input-error:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    /* ============ BUTTONS ============ */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 24px;
+      background: #002B5B;
+      color: var(--white);
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      border-bottom: 3px solid #D4AF37;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #194C78;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 43, 91, 0.25);
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--blue-500);
+      outline-offset: 2px;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-primary .btn-spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255, 255, 255, 0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    .btn-primary.loading .btn-spinner {
+      display: inline-block;
+    }
+
+    .btn-primary.loading .btn-label {
+      display: none;
+    }
+
+    .btn-primary.loading .btn-loading-label {
+      display: inline;
+    }
+
+    .btn-primary .btn-loading-label {
+      display: none;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ============ LINK ============ */
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .back-link:hover {
+      color: var(--blue-500);
+    }
+
+    .back-link:focus-visible {
+      outline: 2px solid var(--blue-500);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* ============ INFO CARD ============ */
+    .info-card {
+      background: #F8F5E6;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+      color: var(--gray-700);
+      margin-bottom: 6px;
+    }
+
+    .info-row:last-of-type {
+      margin-bottom: 12px;
+    }
+
+    .info-label {
+      color: var(--gray-600);
+    }
+
+    .info-value {
+      font-weight: 600;
+      color: #002B5B;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 8px;
+      background: var(--gray-200);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #002B5B, #71A7D1, #D4AF37);
+      border-radius: var(--radius-full);
+      transition: width 0.5s ease;
+    }
+
+    /* ============ PREVIEW CARD ============ */
+    .preview-card {
+      border: 2px dashed rgba(0, 43, 91, 0.15);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 24px;
+      background: #FDFBF3;
+    }
+
+    .preview-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .preview-amount {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: #002B5B;
+      margin-bottom: 4px;
+    }
+
+    .preview-percent {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      margin-bottom: 10px;
+    }
+
+    .preview-progress-track {
+      width: 100%;
+      height: 6px;
+      background: var(--gray-200);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .preview-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #002B5B, #71A7D1, #D4AF37);
+      border-radius: var(--radius-full);
+      transition: width 0.3s ease;
+    }
+
+    /* ============ UPDATE TITLE AREA ============ */
+    .update-title-area {
+      margin-bottom: 8px;
+    }
+
+    .update-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--blue-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .update-subtitle {
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      margin-bottom: 24px;
+    }
+
+    /* ============ DATETIME INPUT ============ */
+    .datetime-display {
+      width: 100%;
+      padding: 12px 14px;
+      padding-left: 42px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.9375rem;
+      color: var(--gray-600);
+      background: #F8F5E6;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      cursor: default;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ============ TOAST SYSTEM ============ */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-xl);
+      font-size: 0.875rem;
+      font-weight: 500;
+      min-width: 280px;
+      max-width: 400px;
+      transform: translateX(120%);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .toast.hide {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+
+    .toast-success {
+      border-left: 4px solid #D4AF37;
+      color: #002B5B;
+      background: linear-gradient(135deg, var(--white) 0%, #FDFBF0 100%);
+    }
+
+    .toast-error {
+      border-left: 4px solid var(--red-500);
+      color: #002B5B;
+    }
+
+    .toast-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    .toast-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--gray-400);
+      cursor: pointer;
+      padding: 2px;
+      display: flex;
+      border-radius: 4px;
+    }
+
+    .toast-close:hover {
+      color: var(--gray-600);
+    }
+
+    /* ============ STEP TRANSITIONS ============ */
+    .fade-in {
+      animation: fadeSlideIn 0.4s ease forwards;
+    }
+
+    .fade-out {
+      animation: fadeSlideOut 0.3s ease forwards;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeSlideOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+    }
+
+    /* ============ GOLD ACCENT ICON ============ */
+    .gold-icon {
+      color: var(--gold-500);
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 600px) {
+      .card {
+        padding: 24px 16px;
+        border-radius: var(--radius-md);
+      }
+
+      .center-container {
+        padding: 16px;
+        align-items: flex-start;
+        padding-top: 24px;
+      }
+
+      .center-container.with-header {
+        padding-top: 76px;
+      }
+
+      .card-title {
+        font-size: 1.125rem;
+      }
+
+      .header-inner {
+        padding: 10px 16px;
+      }
+
+      .toast-container {
+        right: 12px;
+        left: 12px;
+      }
+
+      .toast {
+        min-width: unset;
+        max-width: unset;
+      }
+
+      .form-input,
+      .form-textarea,
+      .datetime-display {
+        min-height: 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =============== INLINE SVG DEFINITIONS =============== -->
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <!-- Gradients for flower -->
+      <radialGradient id="petalGrad" cx="40%" cy="40%" r="65%">
+        <stop offset="0%" stop-color="#F5D562"/><stop offset="45%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#C89229"/>
+      </radialGradient>
+      <radialGradient id="petalGrad2" cx="50%" cy="35%" r="60%">
+        <stop offset="0%" stop-color="#E0C050"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#B8861B"/>
+      </radialGradient>
+      <radialGradient id="centerGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#E85D04"/><stop offset="70%" stop-color="#D43D04"/><stop offset="100%" stop-color="#B82E04"/>
+      </radialGradient>
+      <radialGradient id="stamenGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#F5D562"/><stop offset="100%" stop-color="#E0C050"/>
+      </radialGradient>
+
+      <!-- Flower Icon (simplified, smooth curves) -->
+      <symbol id="sym-flower-icon" viewBox="0 0 200 200">
+        <path d="M100,82 C95,72 86,50 86,38 C86,26 92,18 100,18 C108,18 114,26 114,38 C114,50 105,72 100,82Z" fill="#D4AF37"/>
+        <path d="M106,86 C112,80 130,66 142,62 C154,58 162,64 162,74 C162,84 152,88 142,87 C130,86 114,86 106,86Z" fill="#E0C050"/>
+        <path d="M104,94 C108,100 122,116 128,128 C134,140 130,150 122,152 C114,154 108,148 106,138 C104,128 103,104 104,94Z" fill="#D4AF37"/>
+        <path d="M96,94 C92,100 78,116 72,128 C66,140 70,150 78,152 C86,154 92,148 94,138 C96,128 97,104 96,94Z" fill="#E0C050"/>
+        <path d="M94,86 C88,80 70,66 58,62 C46,58 38,64 38,74 C38,84 48,88 58,87 C70,86 86,86 94,86Z" fill="#D4AF37"/>
+        <circle cx="100" cy="90" r="10" fill="#E85D04"/>
+        <circle cx="100" cy="90" r="6" fill="#D43D04"/>
+        <circle cx="100" cy="90" r="12" fill="none" stroke="#F5D562" stroke-width="1.5" stroke-dasharray="2.5 3" opacity="0.7"/>
+      </symbol>
+
+      <!-- Flower Full (decorative, smooth curves with gradients) -->
+      <symbol id="sym-flower-full" viewBox="0 0 200 200">
+        <path d="M100,88 C92,78 80,52 78,38 C76,24 86,10 100,10 C114,10 124,24 122,38 C120,52 108,78 100,88Z" fill="#C89229" opacity="0.85"/>
+        <path d="M100,85 C94,76 84,54 83,40 C82,28 89,16 100,16 C111,16 118,28 117,40 C116,54 106,76 100,85Z" fill="url(#petalGrad)"/>
+        <path d="M105,90 C112,82 136,64 148,56 C160,48 174,52 178,66 C182,80 172,92 158,92 C144,92 116,88 105,90Z" fill="#C89229" opacity="0.85"/>
+        <path d="M108,88 C114,82 136,66 148,60 C160,54 170,56 174,68 C178,80 168,90 156,89 C142,88 118,86 108,88Z" fill="url(#petalGrad2)"/>
+        <path d="M103,95 C110,100 130,120 138,134 C146,148 140,164 128,168 C116,172 104,162 102,148 C100,134 100,106 103,95Z" fill="#C89229" opacity="0.85"/>
+        <path d="M104,98 C110,102 128,120 135,132 C142,144 138,158 128,162 C118,166 108,158 106,146 C104,134 103,108 104,98Z" fill="url(#petalGrad)"/>
+        <path d="M97,95 C90,100 70,120 62,134 C54,148 60,164 72,168 C84,172 96,162 98,148 C100,134 100,106 97,95Z" fill="#C89229" opacity="0.85"/>
+        <path d="M96,98 C90,102 72,120 65,132 C58,144 62,158 72,162 C82,166 92,158 94,146 C96,134 97,108 96,98Z" fill="url(#petalGrad2)"/>
+        <path d="M95,90 C88,82 64,64 52,56 C40,48 26,52 22,66 C18,80 28,92 42,92 C56,92 84,88 95,90Z" fill="#C89229" opacity="0.85"/>
+        <path d="M92,88 C86,82 64,66 52,60 C40,54 30,56 26,68 C22,80 32,90 44,89 C58,88 82,86 92,88Z" fill="url(#petalGrad)"/>
+        <circle cx="100" cy="92" r="14" fill="url(#centerGrad)"/>
+        <circle cx="100" cy="92" r="10" fill="#D43D04" opacity="0.7"/>
+        <g stroke="#E85D04" stroke-width="0.7" fill="none" opacity="0.8">
+          <line x1="100" y1="78" x2="100" y2="82"/><line x1="107" y1="79" x2="105" y2="83"/>
+          <line x1="113" y1="83" x2="109" y2="86"/><line x1="114" y1="90" x2="110" y2="90"/>
+          <line x1="113" y1="98" x2="109" y2="96"/><line x1="107" y1="104" x2="105" y2="100"/>
+          <line x1="100" y1="106" x2="100" y2="102"/><line x1="93" y1="104" x2="95" y2="100"/>
+          <line x1="87" y1="98" x2="91" y2="96"/><line x1="86" y1="90" x2="90" y2="90"/>
+          <line x1="87" y1="83" x2="91" y2="86"/><line x1="93" y1="79" x2="95" y2="83"/>
+        </g>
+        <g fill="url(#stamenGrad)">
+          <circle cx="100" cy="77" r="1.8"/><circle cx="107.5" cy="78.5" r="1.6"/>
+          <circle cx="113.5" cy="82.5" r="1.6"/><circle cx="115" cy="90" r="1.8"/>
+          <circle cx="113.5" cy="98.5" r="1.6"/><circle cx="107.5" cy="104.5" r="1.6"/>
+          <circle cx="100" cy="107" r="1.8"/><circle cx="92.5" cy="104.5" r="1.6"/>
+          <circle cx="86.5" cy="98.5" r="1.6"/><circle cx="85" cy="90" r="1.8"/>
+          <circle cx="86.5" cy="82.5" r="1.6"/><circle cx="92.5" cy="78.5" r="1.6"/>
+        </g>
+        <circle cx="99" cy="91" r="4" fill="#E85D04" opacity="0.6"/>
+        <circle cx="98.5" cy="90.5" r="2" fill="#F5D562" opacity="0.3"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- =============== TOAST CONTAINER =============== -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- =============== APP WRAPPER =============== -->
+  <div class="app-wrapper">
+
+    <!-- =============== HEADER BAR (step 2) =============== -->
+    <header class="header-bar" id="headerBar" role="banner">
+      <div class="header-inner">
+        <div class="header-left">
+          <div class="header-logo" aria-hidden="true"><img src="favicon.png" alt="โลโก้โรงเรียน"></div>
+          <svg class="flower-icon flower-icon-sm" aria-hidden="true">
+            <use href="#sym-flower-icon" />
+          </svg>
+          <span class="header-title">ระบบผู้ดูแล</span>
+        </div>
+        <button class="btn-logout" id="btnLogout" type="button" aria-label="ออกจากระบบ">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+          ออกจากระบบ
+        </button>
+      </div>
+    </header>
+
+    <!-- =============== STEP 1: LOGIN =============== -->
+    <div id="step-login">
+      <div class="center-container">
+        <div class="card card-login fade-in" role="main">
+          <div class="logo-area">
+            <div class="school-emblem">
+              <img src="favicon.png" alt="โลโก้โรงเรียน">
+            </div>
+            <svg class="flower-full-deco" aria-hidden="true">
+              <use href="#sym-flower-full" />
+            </svg>
+          </div>
+
+          <h1 class="card-title">
+            เข้าสู่ระบบผู้ดูแล
+          </h1>
+          <p class="card-subtitle">โรงเรียนบุ่งค้าวิทยาคม</p>
+
+          <div class="error-banner" id="loginError" role="alert">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="15" y1="9" x2="9" y2="15" />
+              <line x1="9" y1="9" x2="15" y2="15" />
+            </svg>
+            <span id="loginErrorMsg">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</span>
+          </div>
+
+          <form id="loginForm" novalidate autocomplete="off">
+            <div class="form-group">
+              <label class="form-label" for="username">ชื่อผู้ใช้</label>
+              <div class="input-wrapper">
+                <span class="input-icon-left" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </span>
+                <input class="form-input" type="text" id="username" name="username" placeholder="กรอกชื่อผู้ใช้"
+                  autocomplete="username" required aria-required="true">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="password">รหัสผ่าน</label>
+              <div class="input-wrapper">
+                <span class="input-icon-left" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0110 0v4" />
+                  </svg>
+                </span>
+                <input class="form-input has-right-icon" type="password" id="password" name="password"
+                  placeholder="กรอกรหัสผ่าน" autocomplete="current-password" required aria-required="true">
+                <button class="input-icon-right" type="button" id="togglePassword" aria-label="แสดง/ซ่อนรหัสผ่าน"
+                  tabindex="0">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" id="eyeIcon">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" id="eyeOffIcon" style="display:none">
+                    <path
+                      d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div style="margin-top: 24px;">
+              <button class="btn-primary" type="submit" id="btnLogin">
+                <span class="btn-spinner" aria-hidden="true"></span>
+                <span class="btn-label">เข้าสู่ระบบ</span>
+                <span class="btn-loading-label">กำลังเข้าสู่ระบบ...</span>
+                <svg class="gold-icon btn-label" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"
+                  style="margin-left:2px" aria-hidden="true">
+                  <path
+                    d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42A6.92 6.92 0 0119 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.05.88-3.89 2.29-5.17l-1.42-1.42A8.96 8.96 0 003 12c0 4.97 4.03 9 9 9s9-4.03 9-9a8.96 8.96 0 00-2.17-5.83z" />
+                </svg>
+              </button>
+            </div>
+          </form>
+
+          <a href="dashboard.html" class="back-link">กลับหน้าแรก</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============== STEP 2: UPDATE =============== -->
+    <div id="step-update">
+      <div class="center-container with-header">
+        <div class="card card-update" role="main">
+          <div class="update-title-area">
+            <h1 class="update-title">
+              <svg class="flower-icon" aria-hidden="true">
+                <use href="#sym-flower-icon" />
+              </svg>
+              อัปเดตยอดระดมทุน
+            </h1>
+          </div>
+          <p class="update-subtitle">กรอกยอดเงินล่าสุดเพื่ออัปเดตหน้าแสดงผล</p>
+
+          <!-- Info card: current status -->
+          <div class="info-card">
+            <div class="info-row">
+              <span>ยอดปัจจุบัน</span>
+              <span class="info-value" id="infoCurrentAmount">0 บาท</span>
+            </div>
+            <div class="info-row">
+              <span>เป้าหมาย</span>
+              <span class="info-value">1,000,000 บาท</span>
+            </div>
+            <div class="info-row">
+              <span>คิดเป็น</span>
+              <span class="info-value" id="infoPercent">0.00%</span>
+            </div>
+            <div class="progress-bar-track" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"
+              aria-label="ความคืบหน้าการระดมทุน">
+              <div class="progress-bar-fill" id="infoProgressBar" style="width:0%"></div>
+            </div>
+          </div>
+
+          <!-- Update form -->
+          <form id="updateForm" novalidate>
+            <div class="form-group-lg">
+              <label class="form-label" for="newAmount">ยอดรวมปัจจุบัน (บาท)</label>
+              <div class="input-wrapper">
+                <span class="input-prefix" aria-hidden="true">&#3647;</span>
+                <input class="form-input with-prefix" type="text" id="newAmount" name="newAmount" placeholder="0"
+                  inputmode="numeric" autocomplete="off" required aria-required="true">
+              </div>
+              <div class="field-error" id="amountError" role="alert">กรุณากรอกจำนวนเงิน</div>
+            </div>
+
+            <div class="form-group-lg">
+              <label class="form-label" for="donorCountInput">จำนวนผู้บริจาค (ราย)</label>
+              <div class="input-wrapper">
+                <span class="input-prefix" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                </span>
+                <input class="form-input with-prefix" type="text" id="donorCountInput" name="donorCount" placeholder="0"
+                  inputmode="numeric" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="form-group-lg">
+              <label class="form-label" for="updateNote">หมายเหตุการอัปเดต (ไม่บังคับ)</label>
+              <textarea class="form-textarea" id="updateNote" name="updateNote" rows="3"
+                placeholder="เช่น ยอดบริจาคจากงานกีฬาสี"></textarea>
+            </div>
+
+            <div class="form-group-lg">
+              <label class="form-label" for="updateDatetime">วันที่/เวลาอัปเดต</label>
+              <div class="input-wrapper">
+                <span class="input-icon-left" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </span>
+                <div class="datetime-display" id="updateDatetime" aria-label="วันที่และเวลาอัปเดต"></div>
+              </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="preview-card">
+              <div class="preview-title">ตัวอย่างการแสดงผล</div>
+              <div class="preview-amount" id="previewAmount">ยอดใหม่: 0 บาท</div>
+              <div class="preview-percent" id="previewPercent">คิดเป็น 0.00% ของเป้าหมาย 1,000,000 บาท</div>
+              <div class="preview-progress-track">
+                <div class="preview-progress-fill" id="previewProgressBar" style="width:0%"></div>
+              </div>
+            </div>
+
+            <button class="btn-primary" type="submit" id="btnSubmitUpdate" disabled>
+              <span class="btn-spinner" aria-hidden="true"></span>
+              <span class="btn-label">
+                <svg class="gold-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                บันทึกยอด
+              </span>
+              <span class="btn-loading-label">กำลังบันทึก...</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /app-wrapper -->
+
+  <!-- =============== JAVASCRIPT =============== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ============ CONSTANTS ============
+      const GOAL = 1000000;
+      const DEMO_USER = 'admin';
+      const DEMO_PASS = '1234';
+      // โหลดยอดล่าสุดจาก localStorage (sync กับ dashboard.html)
+      let currentAmount = parseInt(localStorage.getItem('fundraising_raisedAmount') || '0', 10);
+      let currentDonorCount = parseInt(localStorage.getItem('fundraising_donorCount') || '0', 10);
+
+      // ============ DOM REFS ============
+      const stepLogin = document.getElementById('step-login');
+      const stepUpdate = document.getElementById('step-update');
+      const headerBar = document.getElementById('headerBar');
+      const loginForm = document.getElementById('loginForm');
+      const loginError = document.getElementById('loginError');
+      const loginErrorMsg = document.getElementById('loginErrorMsg');
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      const togglePasswordBtn = document.getElementById('togglePassword');
+      const eyeIcon = document.getElementById('eyeIcon');
+      const eyeOffIcon = document.getElementById('eyeOffIcon');
+      const btnLogin = document.getElementById('btnLogin');
+      const btnLogout = document.getElementById('btnLogout');
+      const updateForm = document.getElementById('updateForm');
+      const newAmountInput = document.getElementById('newAmount');
+      const amountError = document.getElementById('amountError');
+      const updateNote = document.getElementById('updateNote');
+      const updateDatetime = document.getElementById('updateDatetime');
+      const btnSubmitUpdate = document.getElementById('btnSubmitUpdate');
+      const infoCurrentAmount = document.getElementById('infoCurrentAmount');
+      const infoPercent = document.getElementById('infoPercent');
+      const infoProgressBar = document.getElementById('infoProgressBar');
+      const previewAmount = document.getElementById('previewAmount');
+      const previewPercent = document.getElementById('previewPercent');
+      const previewProgressBar = document.getElementById('previewProgressBar');
+      const donorCountInput = document.getElementById('donorCountInput');
+      const toastContainer = document.getElementById('toastContainer');
+
+      // ============ UTILITIES ============
+      function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+
+      function parseNumberInput(str) {
+        return parseInt(str.replace(/,/g, ''), 10);
+      }
+
+      function calcPercent(amount) {
+        return Math.min((amount / GOAL) * 100, 100);
+      }
+
+      function getThaiDateTime() {
+        const now = new Date();
+        const thaiMonths = [
+          'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+          'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+        ];
+        const day = now.getDate();
+        const month = thaiMonths[now.getMonth()];
+        const year = now.getFullYear() + 543;
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return day + ' ' + month + ' ' + year + ' เวลา ' + hours + ':' + minutes + ' น.';
+      }
+
+      // ============ TOAST SYSTEM ============
+      function showToast(message, type) {
+        var iconSvg = '';
+        if (type === 'success') {
+          iconSvg = '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+        } else {
+          iconSvg = '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+        }
+
+        var toast = document.createElement('div');
+        toast.className = 'toast toast-' + type;
+        toast.setAttribute('role', 'alert');
+        toast.innerHTML = iconSvg +
+          '<span>' + message + '</span>' +
+          '<button class="toast-close" aria-label="ปิด" type="button">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+          '</button>';
+
+        toastContainer.appendChild(toast);
+
+        // Trigger animation
+        requestAnimationFrame(function () {
+          toast.classList.add('show');
+        });
+
+        // Close button
+        toast.querySelector('.toast-close').addEventListener('click', function () {
+          dismissToast(toast);
+        });
+
+        // Auto dismiss
+        setTimeout(function () {
+          dismissToast(toast);
+        }, 4000);
+      }
+
+      function dismissToast(toast) {
+        if (toast.classList.contains('hide')) return;
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 400);
+      }
+
+      // ============ PASSWORD TOGGLE ============
+      togglePasswordBtn.addEventListener('click', function () {
+        var isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        eyeIcon.style.display = isPassword ? 'none' : 'block';
+        eyeOffIcon.style.display = isPassword ? 'block' : 'none';
+        togglePasswordBtn.setAttribute('aria-label', isPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน');
+      });
+
+      // ============ LOGIN ============
+      loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var user = usernameInput.value.trim();
+        var pass = passwordInput.value;
+
+        // Hide previous error
+        loginError.classList.remove('visible');
+
+        // Validate empty
+        if (!user || !pass) {
+          loginErrorMsg.textContent = 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน';
+          loginError.classList.add('visible');
+          if (!user) usernameInput.focus();
+          else passwordInput.focus();
+          return;
+        }
+
+        // Loading state
+        btnLogin.classList.add('loading');
+        btnLogin.disabled = true;
+
+        setTimeout(function () {
+          if (user === DEMO_USER && pass === DEMO_PASS) {
+            // Success -> transition to update step
+            transitionToUpdate();
+          } else {
+            loginErrorMsg.textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+            loginError.classList.add('visible');
+            showToast('เข้าสู่ระบบไม่สำเร็จ', 'error');
+            passwordInput.value = '';
+            passwordInput.focus();
+          }
+          btnLogin.classList.remove('loading');
+          btnLogin.disabled = false;
+        }, 800);
+      });
+
+      // ============ STEP TRANSITION ============
+      function transitionToUpdate() {
+        stepLogin.classList.add('fade-out');
+
+        setTimeout(function () {
+          stepLogin.style.display = 'none';
+          stepLogin.classList.remove('fade-out');
+
+          stepUpdate.style.display = 'block';
+          stepUpdate.classList.add('fade-in');
+          headerBar.classList.add('visible');
+
+          // Set datetime
+          updateDatetime.textContent = getThaiDateTime();
+
+          // Update info card
+          updateInfoCard();
+
+          // Pre-fill donor count
+          if (currentDonorCount > 0) {
+            donorCountInput.value = formatNumber(currentDonorCount);
+          }
+
+          // Focus first input
+          newAmountInput.focus();
+
+          showToast('เข้าสู่ระบบสำเร็จ', 'success');
+
+          setTimeout(function () {
+            stepUpdate.classList.remove('fade-in');
+          }, 500);
+        }, 300);
+      }
+
+      function transitionToLogin() {
+        stepUpdate.classList.add('fade-out');
+        headerBar.classList.remove('visible');
+
+        setTimeout(function () {
+          stepUpdate.style.display = 'none';
+          stepUpdate.classList.remove('fade-out');
+
+          stepLogin.style.display = 'block';
+          stepLogin.classList.add('fade-in');
+
+          // Reset login form
+          loginForm.reset();
+          loginError.classList.remove('visible');
+          eyeIcon.style.display = 'block';
+          eyeOffIcon.style.display = 'none';
+          passwordInput.type = 'password';
+
+          // Reset update form
+          updateForm.reset();
+          amountError.classList.remove('visible');
+          newAmountInput.classList.remove('input-error');
+          btnSubmitUpdate.disabled = true;
+          updatePreview(0);
+
+          usernameInput.focus();
+
+          setTimeout(function () {
+            stepLogin.classList.remove('fade-in');
+          }, 500);
+        }, 300);
+      }
+
+      // ============ LOGOUT ============
+      btnLogout.addEventListener('click', function () {
+        transitionToLogin();
+        showToast('ออกจากระบบแล้ว', 'success');
+      });
+
+      // ============ INFO CARD UPDATE ============
+      function updateInfoCard() {
+        var pct = calcPercent(currentAmount);
+        infoCurrentAmount.textContent = formatNumber(currentAmount) + ' บาท';
+        infoPercent.textContent = pct.toFixed(2) + '%';
+        infoProgressBar.style.width = pct + '%';
+        infoProgressBar.parentElement.setAttribute('aria-valuenow', Math.round(pct));
+      }
+
+      // ============ AMOUNT INPUT FORMATTING ============
+      newAmountInput.addEventListener('input', function () {
+        var raw = this.value.replace(/[^0-9]/g, '');
+        if (raw === '') {
+          this.value = '';
+          updatePreview(0);
+          validateAmount('');
+          return;
+        }
+        var num = parseInt(raw, 10);
+        this.value = formatNumber(num);
+        updatePreview(num);
+        validateAmount(raw);
+      });
+
+      newAmountInput.addEventListener('blur', function () {
+        validateAmount(this.value.replace(/[^0-9]/g, ''));
+      });
+
+      // ============ DONOR COUNT INPUT FORMATTING ============
+      donorCountInput.addEventListener('input', function () {
+        var raw = this.value.replace(/[^0-9]/g, '');
+        if (raw === '') { this.value = ''; return; }
+        this.value = formatNumber(parseInt(raw, 10));
+      });
+
+      function validateAmount(raw) {
+        if (raw === '') {
+          amountError.textContent = 'กรุณากรอกจำนวนเงิน';
+          amountError.classList.add('visible');
+          newAmountInput.classList.add('input-error');
+          btnSubmitUpdate.disabled = true;
+          return false;
+        }
+        var num = parseInt(raw, 10);
+        if (isNaN(num)) {
+          amountError.textContent = 'ต้องเป็นตัวเลข';
+          amountError.classList.add('visible');
+          newAmountInput.classList.add('input-error');
+          btnSubmitUpdate.disabled = true;
+          return false;
+        }
+        if (num < 0) {
+          amountError.textContent = 'ต้องไม่ติดลบ';
+          amountError.classList.add('visible');
+          newAmountInput.classList.add('input-error');
+          btnSubmitUpdate.disabled = true;
+          return false;
+        }
+        amountError.classList.remove('visible');
+        newAmountInput.classList.remove('input-error');
+        btnSubmitUpdate.disabled = false;
+        return true;
+      }
+
+      // ============ REAL-TIME PREVIEW ============
+      function updatePreview(amount) {
+        var pct = calcPercent(amount);
+        previewAmount.textContent = 'ยอดใหม่: ' + formatNumber(amount) + ' บาท';
+        previewPercent.textContent = 'คิดเป็น ' + pct.toFixed(2) + '% ของเป้าหมาย ' + formatNumber(GOAL) + ' บาท';
+        previewProgressBar.style.width = pct + '%';
+      }
+
+      // ============ UPDATE FORM SUBMIT ============
+      updateForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var raw = newAmountInput.value.replace(/[^0-9]/g, '');
+        if (!validateAmount(raw)) return;
+
+        var newAmount = parseInt(raw, 10);
+
+        // Loading state
+        btnSubmitUpdate.classList.add('loading');
+        btnSubmitUpdate.disabled = true;
+
+        setTimeout(function () {
+          // "Save" the update
+          currentAmount = newAmount;
+          updateInfoCard();
+
+          // อ่านจำนวนผู้บริจาค
+          var donorRaw = donorCountInput.value.replace(/[^0-9]/g, '');
+          var donorNum = donorRaw ? parseInt(donorRaw, 10) : currentDonorCount;
+          currentDonorCount = donorNum;
+
+          // Sync กับ dashboard.html ผ่าน localStorage
+          localStorage.setItem('fundraising_raisedAmount', newAmount.toString());
+          localStorage.setItem('fundraising_donorCount', donorNum.toString());
+          localStorage.setItem('fundraising_lastUpdated', getThaiDateTime());
+          localStorage.setItem('fundraising_updatedAt', Date.now().toString());
+
+          // Reset form
+          newAmountInput.value = '';
+          donorCountInput.value = donorNum > 0 ? formatNumber(donorNum) : '';
+          updateNote.value = '';
+          updateDatetime.textContent = getThaiDateTime();
+          updatePreview(0);
+          btnSubmitUpdate.disabled = true;
+
+          btnSubmitUpdate.classList.remove('loading');
+
+          showToast('บันทึกยอดสำเร็จ — ' + formatNumber(newAmount) + ' บาท', 'success');
+
+          newAmountInput.focus();
+        }, 1000);
+      });
+
+      // ============ DATETIME AUTO-UPDATE ============
+      setInterval(function () {
+        if (stepUpdate.style.display !== 'none' && stepUpdate.style.display !== '') {
+          updateDatetime.textContent = getThaiDateTime();
+        }
+      }, 30000);
+
+      // ============ KEYBOARD: Enter on inputs ============
+      usernameInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); passwordInput.focus(); }
+      });
+
+    })();
+  </script>
+</body>
+
+</html>
