@@ -753,17 +753,17 @@
       font-weight: 300
     }
 
-    .cta-info-box .qr-placeholder {
-      width: 120px;
-      height: 120px;
+    .cta-info-box .qr-image {
+      width: 160px;
+      height: auto;
       margin: 8px auto 0;
-      background: rgba(255, 255, 255, 0.1);
       border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 0.75rem;
+      display: block;
+    }
+
+    .cta-info-box .cta-phone {
+      margin-top: 8px;
+      display: inline-block;
     }
 
     /* ===== FOOTER ===== */
@@ -1422,14 +1422,14 @@
           <h3>ข้อมูลบัญชีธนาคาร</h3>
           <p>
             ธนาคารกรุงไทย<br>
-            สาขาเลิงนกทา<br>
-            เลขบัญชี: XXX-X-XXXXX-X<br>
-            ชื่อบัญชี: กองทุนพัฒนาโรงเรียนบุ่งค้าวิทยาคม
+            เลขที่บัญชี: 325-0-81206-4<br>
+            ชื่อบัญชี: กองทุนเพื่อการศึกษาโรงเรียนบุ่งค้าวิทยาคม<br>
+            <span class="cta-phone">โทร. 045-781252</span>
           </p>
         </div>
         <div class="cta-info-box">
           <h3>QR Code พร้อมเพย์</h3>
-          <div class="qr-placeholder">QR Code</div>
+          <img src="qrpromptpay.jpg" alt="QR Code PromptPay กองทุนเพื่อการศึกษาโรงเรียนบุ่งค้าวิทยาคม" class="qr-image">
         </div>
       </div>
     </div>
