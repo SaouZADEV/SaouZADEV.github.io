@@ -20,8 +20,8 @@ insert into public.fundraising_summary (id)
 values (1)
 on conflict (id) do nothing;
 
-create or replace function public.refresh_fundraising_summary()
-returns trigger
+create or replace function public.rebuild_fundraising_summary()
+returns void
 language plpgsql
 security definer
 set search_path = public
@@ -69,6 +69,17 @@ begin
     last_updated_label = excluded.last_updated_label,
     updated_at = excluded.updated_at;
 
+end;
+$$;
+
+create or replace function public.refresh_fundraising_summary()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  perform public.rebuild_fundraising_summary();
   return null;
 end;
 $$;
@@ -80,7 +91,7 @@ after insert or update or delete on public.fundraising_donations
 for each statement
 execute function public.refresh_fundraising_summary();
 
-select public.refresh_fundraising_summary();
+select public.rebuild_fundraising_summary();
 
 alter table public.fundraising_donations enable row level security;
 alter table public.fundraising_summary enable row level security;
