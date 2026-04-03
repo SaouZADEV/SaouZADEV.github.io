@@ -10,6 +10,8 @@
 
 เปิด `SQL Editor` แล้วรันไฟล์ [schema.sql](/C:/Users/User/Documents/_projects/SaouZADEV.github.io/supabase/schema.sql)
 
+ถ้ายังไม่ได้รันขั้นตอนนี้ หน้าเว็บจะขึ้นข้อความประมาณ `Could not find the table 'public.fundraising_summary' in the schema cache` หรือ `PGRST205`
+
 สิ่งที่จะถูกสร้าง:
 
 - ตาราง `public.fundraising_donations`

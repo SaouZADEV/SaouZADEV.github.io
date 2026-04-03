@@ -28,6 +28,34 @@
     return isFinite(numberValue) ? numberValue : 0;
   }
 
+  function extractMissingTableName(message) {
+    var text = String(message || '');
+    var match = text.match(/table '([^']+)'/);
+    return match ? match[1] : '';
+  }
+
+  function normalizeSupabaseError(error) {
+    var source = error && typeof error === 'object' ? error : {};
+    var code = String(source.code || '');
+    var message = String(source.message || '');
+    var userMessage = message || 'Supabase request failed';
+
+    if (code === 'PGRST205' || code === '42P01') {
+      var tableName = extractMissingTableName(message);
+      userMessage = 'Supabase tables are missing. Run supabase/schema.sql in the Supabase SQL Editor first' +
+        (tableName ? ' (' + tableName + ').' : '.');
+    } else if (code === '42501') {
+      userMessage = 'This account does not have permission to access the fundraising tables.';
+    }
+
+    var wrapped = new Error(userMessage);
+    wrapped.code = code;
+    wrapped.details = source.details || '';
+    wrapped.hint = source.hint || '';
+    wrapped.original = source;
+    return wrapped;
+  }
+
   function normalizeSummary(rawSummary) {
     var summary = rawSummary && typeof rawSummary === 'object' ? rawSummary : {};
 
@@ -114,7 +142,7 @@
         .limit(1);
 
       if (response.error) {
-        throw response.error;
+        throw normalizeSupabaseError(response.error);
       }
 
       var row = Array.isArray(response.data) && response.data.length > 0 ? response.data[0] : null;
@@ -135,7 +163,7 @@
         .order('id', { ascending: true });
 
       if (response.error) {
-        throw response.error;
+        throw normalizeSupabaseError(response.error);
       }
 
       return (response.data || []).map(normalizeDonation);
@@ -205,7 +233,7 @@
       });
 
       if (response.error) {
-        throw response.error;
+        throw normalizeSupabaseError(response.error);
       }
 
       return response.data;
@@ -214,7 +242,7 @@
     async function signOut() {
       var response = await getClient().auth.signOut();
       if (response.error) {
-        throw response.error;
+        throw normalizeSupabaseError(response.error);
       }
     }
 
@@ -244,7 +272,7 @@
 
       var response = await getClient().auth.getSession();
       if (response.error) {
-        throw response.error;
+        throw normalizeSupabaseError(response.error);
       }
 
       return response.data.session;
@@ -261,7 +289,7 @@
       });
 
       if (response.error) {
-        throw response.error;
+        throw normalizeSupabaseError(response.error);
       }
     }
 
@@ -272,7 +300,7 @@
         .eq('id', donationId);
 
       if (response.error) {
-        throw response.error;
+        throw normalizeSupabaseError(response.error);
       }
     }
 
