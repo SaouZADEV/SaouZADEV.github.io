@@ -754,7 +754,7 @@
     }
 
     .cta-info-box .qr-image {
-      width: 160px;
+      width: min(100%, 220px);
       height: auto;
       margin: 8px auto 0;
       border-radius: 12px;
@@ -1409,7 +1409,7 @@
       <h2>ร่วมเป็นส่วนหนึ่งของการศึกษา</h2>
       <p>สมทบทุนสร้างอาคารปฏิบัติการดนตรี-นาฏศิลป์ ทุกบาทมีค่า</p>
 
-      <button class="cta-btn" onclick="alert('ขอบคุณสำหรับความสนใจ ระบบบริจาคจะเปิดเร็ว ๆ นี้')">
+      <button class="cta-btn" type="button" id="ctaDonateBtn">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path
             d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -1417,7 +1417,7 @@
         ร่วมบริจาค
       </button>
 
-      <div class="cta-info-grid">
+      <div class="cta-info-grid" id="paymentDetails">
         <div class="cta-info-box">
           <h3>ข้อมูลบัญชีธนาคาร</h3>
           <p>
@@ -1429,7 +1429,7 @@
         </div>
         <div class="cta-info-box">
           <h3>QR Code พร้อมเพย์</h3>
-          <img src="qrpromptpay.jpg" alt="QR Code PromptPay กองทุนเพื่อการศึกษาโรงเรียนบุ่งค้าวิทยาคม" class="qr-image">
+          <img src="qrpromptpay.jpg" alt="QR Code PromptPay กองทุนเพื่อการศึกษาโรงเรียนบุ่งค้าวิทยาคม" class="qr-image" width="357" height="358" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -1449,268 +1449,10 @@
   </footer>
 
   <!-- ========== JAVASCRIPT ========== -->
-  <script>
-    (function () {
-      'use strict';
-
-      /* ===== CONFIG ===== */
-      const CONFIG = {
-        goalAmount: 1000000,
-        raisedAmount: parseInt(localStorage.getItem('fundraising_raisedAmount') || '0', 10),
-        donorCount: parseInt(localStorage.getItem('fundraising_donorCount') || '0', 10),
-        lastDonation: parseInt(localStorage.getItem('fundraising_lastDonation') || '0', 10),
-        animDuration: 2200,
-      };
-
-      const percent = Math.round((CONFIG.raisedAmount / CONFIG.goalAmount) * 100);
-
-      // อ่านวันที่อัปเดตล่าสุดจาก localStorage
-      var savedDate = localStorage.getItem('fundraising_lastUpdated');
-
-      /* ===== COUNT-UP ANIMATION ===== */
-      function animateValue(el, start, end, duration, formatter) {
-        const startTime = performance.now();
-        function update(currentTime) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          // ease-out cubic
-          const ease = 1 - Math.pow(1 - progress, 3);
-          const current = Math.round(start + (end - start) * ease);
-          el.textContent = formatter ? formatter(current) : current;
-          if (progress < 1) requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
-      }
-
-      function formatNumber(n) {
-        return n.toLocaleString('th-TH');
-      }
-
-      /* ===== INIT STATS ===== */
-      function initStats() {
-        const percentEl = document.getElementById('percentNumber');
-        const raisedEl = document.getElementById('raisedAmount');
-        const lastDonationEl = document.getElementById('lastDonation');
-        const goalEl = document.getElementById('goalAmount');
-        const donorEl = document.getElementById('donorCount');
-        const progressBar = document.getElementById('progressBar');
-
-        animateValue(percentEl, 0, percent, CONFIG.animDuration);
-
-        animateValue(raisedEl, 0, CONFIG.raisedAmount, CONFIG.animDuration, function (v) {
-          return formatNumber(v);
-        });
-        setTimeout(function () {
-          raisedEl.innerHTML = formatNumber(CONFIG.raisedAmount) + '<span class="unit">บาท</span>';
-        }, CONFIG.animDuration + 50);
-
-        // Last donation
-        if (CONFIG.lastDonation > 0) {
-          animateValue(lastDonationEl, 0, CONFIG.lastDonation, CONFIG.animDuration, function (v) {
-            return '+' + formatNumber(v);
-          });
-          setTimeout(function () {
-            lastDonationEl.innerHTML = '+' + formatNumber(CONFIG.lastDonation) + '<span class="unit">บาท</span>';
-          }, CONFIG.animDuration + 50);
-        } else {
-          lastDonationEl.innerHTML = '—<span class="unit">บาท</span>';
-        }
-
-        animateValue(goalEl, 0, CONFIG.goalAmount, CONFIG.animDuration, function (v) {
-          return formatNumber(v);
-        });
-        setTimeout(function () {
-          goalEl.innerHTML = formatNumber(CONFIG.goalAmount) + '<span class="unit">บาท</span>';
-        }, CONFIG.animDuration + 50);
-
-        animateValue(donorEl, 0, CONFIG.donorCount, CONFIG.animDuration, function (v) {
-          return formatNumber(v);
-        });
-        setTimeout(function () {
-          donorEl.innerHTML = formatNumber(CONFIG.donorCount) + '<span class="unit">ราย</span>';
-        }, CONFIG.animDuration + 50);
-
-        // Progress bar
-        setTimeout(function () {
-          progressBar.style.width = percent + '%';
-        }, 200);
-      }
-
-      /* ===== BUILDING PHASES ===== */
-      function initBuildingPhases() {
-        // Phase thresholds
-        const phases = [
-          { id: 'phase1', min: 0, max: 20 },
-          { id: 'phase2', min: 21, max: 50 },
-          { id: 'phase3', min: 51, max: 80 },
-          { id: 'phase4', min: 81, max: 100 },
-        ];
-
-        let highestFunded = 0;
-
-        phases.forEach(function (phase, index) {
-          const el = document.getElementById(phase.id);
-          const dot = document.querySelector('.phase-dot[data-phase="' + (index + 1) + '"]');
-          const card = document.querySelector('.phase-card[data-phase-card="' + (index + 1) + '"]');
-          if (percent >= phase.max) {
-            // Fully funded
-            setTimeout(function () {
-              el.classList.remove('unfunded');
-              el.classList.add('funded');
-              if (dot) dot.classList.add('filled');
-              if (card) card.classList.add('funded');
-            }, 600 + index * 500);
-            highestFunded = index + 1;
-          } else if (percent >= phase.min) {
-            // Partially funded
-            setTimeout(function () {
-              el.classList.remove('unfunded');
-              el.classList.add('funded');
-              if (dot) dot.classList.add('partial');
-              if (card) card.classList.add('partial');
-            }, 600 + index * 500);
-            highestFunded = index + 1;
-          }
-        });
-
-        // Add sparkle effects to the most recently funded phase
-        setTimeout(function () {
-          addSparkles(highestFunded);
-        }, 600 + highestFunded * 500 + 300);
-      }
-
-      /* ===== SPARKLE EFFECT ===== */
-      function addSparkles(phaseNumber) {
-        var container = document.getElementById('sparkleContainer');
-        var wrap = document.getElementById('buildingWrap');
-        if (!container || !wrap) return;
-
-        var wrapRect = wrap.getBoundingClientRect();
-        // Define sparkle zones per phase (relative % within the SVG)
-        var zones = {
-          1: [{ x: 30, y: 85 }, { x: 50, y: 88 }, { x: 70, y: 86 }, { x: 45, y: 90 }],
-          2: [{ x: 25, y: 55 }, { x: 50, y: 60 }, { x: 75, y: 55 }, { x: 40, y: 70 }],
-          3: [{ x: 30, y: 35 }, { x: 50, y: 20 }, { x: 70, y: 35 }, { x: 55, y: 28 }],
-          4: [{ x: 25, y: 50 }, { x: 42, y: 62 }, { x: 58, y: 62 }, { x: 75, y: 50 }, { x: 10, y: 72 }, { x: 90, y: 72 }],
-        };
-
-        var spots = zones[phaseNumber] || zones[4];
-        spots.forEach(function (spot, i) {
-          var spark = document.createElement('div');
-          spark.className = 'sparkle';
-          spark.style.left = spot.x + '%';
-          spark.style.top = spot.y + '%';
-          spark.style.animationDelay = (i * 0.4) + 's';
-          spark.style.width = (4 + Math.random() * 4) + 'px';
-          spark.style.height = spark.style.width;
-          container.appendChild(spark);
-        });
-      }
-
-      /* ===== TOOLTIPS ===== */
-      function initTooltips() {
-        var wrap = document.getElementById('buildingWrap');
-        if (!wrap) return;
-        var tooltip = document.createElement('div');
-        tooltip.className = 'phase-tooltip';
-        wrap.appendChild(tooltip);
-
-        var phases = wrap.querySelectorAll('.phase-group');
-        phases.forEach(function (phase) {
-          phase.style.cursor = 'pointer';
-          phase.addEventListener('mouseenter', function (e) {
-            var name = phase.getAttribute('data-name');
-            var range = phase.getAttribute('data-range');
-            var cost = phase.getAttribute('data-cost');
-            var num = phase.getAttribute('data-phase');
-            tooltip.textContent = 'ขั้นที่ ' + num + ': ' + name + ' — ' + range + ' / ' + cost;
-            tooltip.style.opacity = '1';
-          });
-          phase.addEventListener('mousemove', function (e) {
-            var rect = wrap.getBoundingClientRect();
-            var x = e.clientX - rect.left;
-            var y = e.clientY - rect.top;
-            tooltip.style.left = x + 'px';
-            tooltip.style.top = y + 'px';
-          });
-          phase.addEventListener('mouseleave', function () {
-            tooltip.style.opacity = '0';
-          });
-        });
-      }
-
-      /* ===== DETAILS TOGGLE ===== */
-      function initDetailsToggle() {
-        var btn = document.getElementById('detailsToggle');
-        var content = document.getElementById('detailsContent');
-        if (!btn || !content) return;
-
-        btn.addEventListener('click', function () {
-          var isOpen = btn.classList.contains('open');
-          if (isOpen) {
-            content.style.maxHeight = '0';
-            btn.classList.remove('open');
-            btn.setAttribute('aria-expanded', 'false');
-          } else {
-            content.style.maxHeight = content.scrollHeight + 'px';
-            btn.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-          }
-        });
-      }
-
-      /* ===== FADE-IN ON SCROLL ===== */
-      function initFadeIn() {
-        var elements = document.querySelectorAll('.fade-in');
-        if ('IntersectionObserver' in window) {
-          var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-              }
-            });
-          }, { threshold: 0.15 });
-
-          elements.forEach(function (el) {
-            observer.observe(el);
-          });
-        } else {
-          // Fallback: show all
-          elements.forEach(function (el) {
-            el.classList.add('visible');
-          });
-        }
-      }
-
-      /* ===== SYNC: อัปเดตวันที่จาก localStorage ===== */
-      function syncUpdatedDate() {
-        var dateEl = document.getElementById('updatedText');
-        var saved = localStorage.getItem('fundraising_lastUpdated');
-        if (saved && dateEl) {
-          dateEl.textContent = 'อัปเดตล่าสุดเมื่อ ' + saved;
-        }
-      }
-
-      /* ===== CROSS-TAB SYNC: ถ้า admin อัปเดตขณะ dashboard เปิดอยู่ ===== */
-      window.addEventListener('storage', function (e) {
-        if ((e.key === 'fundraising_raisedAmount' || e.key === 'fundraising_donorCount') && e.newValue) {
-          // Reload หน้าเพื่อแสดงค่าใหม่
-          location.reload();
-        }
-      });
-
-      /* ===== INIT ===== */
-      document.addEventListener('DOMContentLoaded', function () {
-        syncUpdatedDate();
-        initStats();
-        initBuildingPhases();
-        initTooltips();
-        initDetailsToggle();
-        initFadeIn();
-      });
-    })();
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="fundraising-config.js"></script>
+  <script src="fundraising-store.js"></script>
+  <script src="index-app.js"></script>
 </body>
 
 </html>
